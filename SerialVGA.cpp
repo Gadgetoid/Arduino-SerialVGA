@@ -88,6 +88,99 @@ void SerialVGA::print_inverse(char *text_str)
     _serial.print(text_str); 
 }
 
+
+size_t SerialVGA::print(const __FlashStringHelper *ifsh)
+{
+    _serial.print(ifsh);
+}
+size_t SerialVGA::print(const String &s)
+{
+    _serial.print(s);
+}
+
+size_t SerialVGA::print(const char str[])
+{
+    _serial.print(str);
+}
+size_t SerialVGA::print(char c)
+{
+    _serial.print(c);
+}
+size_t SerialVGA::print(unsigned char b, int base)
+{
+    _serial.print(b,base);
+}
+size_t SerialVGA::print(int n, int base)
+{
+    _serial.print(n,base);
+}
+size_t SerialVGA::print(unsigned int n, int base)
+{
+    _serial.print((unsigned long) n,base);
+}
+size_t SerialVGA::print(long n, int base)
+{
+    _serial.print(n,base);
+}
+size_t SerialVGA::print(unsigned long n, int base)
+{
+    _serial.print(n,base);
+}
+size_t SerialVGA::print(double n, int digits)
+{
+    _serial.print(n,digits);
+}
+/*size_t SerialVGA::print(const Printable& x);
+{
+    _serial.print(x);
+}*/
+
+size_t SerialVGA::println(const __FlashStringHelper *ifsh)
+{
+    _serial.println(ifsh);
+}
+size_t SerialVGA::println(const String &s)
+{
+    _serial.println(s);
+}
+size_t SerialVGA::println(const char c[])
+{
+    _serial.println(c);
+}
+size_t SerialVGA::println(char c)
+{
+    _serial.println(c);
+}
+size_t SerialVGA::println(unsigned char b, int base)
+{
+    _serial.println(b,base);
+}
+size_t SerialVGA::println(int num, int base)
+{
+    _serial.println(num,base);
+}
+size_t SerialVGA::println(unsigned int num, int base)
+{
+    _serial.println(num,base);
+}
+size_t SerialVGA::println(long num, int base)
+{
+    _serial.println(num,base);
+}
+size_t SerialVGA::println(unsigned long num, int base)
+{
+    _serial.println(num,base);
+}
+size_t SerialVGA::println(double num, int digits)
+{
+    _serial.println(num,digits);
+}
+size_t SerialVGA::println(const Printable& x)
+{
+    _serial.println(x);
+}
+
+/*
 void SerialVGA::print(char *text_str)
 {
     _serial.print(text_str);
@@ -97,6 +190,7 @@ void SerialVGA::println(char *text_str)
 {
     _serial.println(text_str);
 }
+*/
 
 void SerialVGA::send_command(char *command,char *params)
 {

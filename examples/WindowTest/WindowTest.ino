@@ -53,20 +53,20 @@ void loop() {
     
     vga->set_focus(2);                    // Set Window2 as focus
     
-    // SerialVGA doesn't (yet) expose print and println in their true glory
-    Serial.print("This is data - ");     // print data
-    Serial.println(counter, DEC);
+    // SerialVGA wraps print//println for...err... aesthetic reasons
+    vga->print("This is data - ");     // print data
+    vga->println(counter, DEC);
     
     vga->set_focus(3);
     vga->set_cursor(0,0);
     vga->print_inverse("Summary of Data");
-    Serial.print("\r\n\r\n");
-    Serial.print("Largest Number - ");
-    Serial.println(counter, DEC);
-    Serial.print("SUM of Numbers - ");   // print data    
-    Serial.println(number_sum, DEC);
-    Serial.print("AVG of Numbers - ");   // print data    
-    Serial.println(number_avg, DEC);    
+    vga->print("\r\n\r\n");
+    vga->print("Largest Number - ");
+    vga->println(counter, DEC);
+    vga->print("SUM of Numbers - ");   // print data    
+    vga->println(number_sum, DEC);
+    vga->print("AVG of Numbers - ");   // print data    
+    vga->println(number_avg, DEC);    
    
     counter++;
     number_sum+=counter;

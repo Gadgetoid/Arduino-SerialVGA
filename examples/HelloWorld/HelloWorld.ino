@@ -3,7 +3,8 @@
 #define BAUD_RATE 9600
 
 void setup() {
-  SerialVGA vga(BAUD_RATE);
+  Serial.begin(BAUD_RATE);
+  SerialVGA vga(serial);
   vga.reboot();
   
   int window_id = 0;     // ID of window, from  0 to 8
@@ -23,4 +24,6 @@ void setup() {
 }
 
 void loop() {
+  vga.print("Hello?");
+  delay(1000);
 }

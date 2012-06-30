@@ -6,6 +6,11 @@
 #define SerialVGA_h
 
 #include "Arduino.h"
+#include "Stream.h"
+
+#define CURSOR_ON   1
+#define CURSOR_OFF  0
+
 
 class SerialVGA
 {

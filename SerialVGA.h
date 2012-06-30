@@ -10,7 +10,7 @@
 class SerialVGA
 {
     public:
-        SerialVGA(int baud);
+        SerialVGA(Stream& serial);
         void set_cursor(int x, int y);
         void set_focus(int w);
         void erase_window(int w);
@@ -25,6 +25,7 @@ class SerialVGA
         void println(char *text_str);
     private:
         int _baud;
+        Stream& _serial;
         void send_command(char* command,char *params);
 };
 

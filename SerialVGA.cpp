@@ -5,10 +5,12 @@
 #include "Arduino.h"
 #include "SerialVGA.h"
 
-SerialVGA::SerialVGA(int baud)
+SerialVGA::SerialVGA(Stream& serial) :
+    _serial( serial )
 {
-    _baud = baud;
-    Serial.begin(baud);
+    //_baud = baud;
+    //_serial = serial;
+    //_serial.begin(baud);
 }
 
 void SerialVGA::reboot()
@@ -83,26 +85,26 @@ void SerialVGA::print_inverse(char *text_str)
     for(i=0;text_str[i] != '\0';i++) {
         text_str[i]=text_str[i] | 0x80;
     }   
-    Serial.print(text_str); 
+    _serial.print(text_str); 
 }
 
 void SerialVGA::print(char *text_str)
 {
-    Serial.print(text_str);
+    _serial.print(text_str);
 }
 
 void SerialVGA::println(char *text_str)
 {
-    Serial.println(text_str);
+    _serial.println(text_str);
 }
 
 void SerialVGA::send_command(char *command,char *params)
 {
-    Serial.print("^[");
-    Serial.print(command);
+    _serial.print("^[");
+    _serial.print(command);
     if( strlen( params ) > 0 )
     {
-        Serial.println(params);
+        _serial.println(params);
     }
     if( command[0] == 'r' ) delay(2000);                    // 2 second wait for reboot
     if( command[0] == 'w' && _baud == 115200 ) delay(20);    // 20ms delay for window commands

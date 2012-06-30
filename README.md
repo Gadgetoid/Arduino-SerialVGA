@@ -15,6 +15,8 @@ Simply drop the files in this repository into ~/Documents/Arduino/libraries/Seri
 Usage
 -----
 
+SerialVGA accepts any Serial capable object derived from a Stream. Just make sure you've initialised it with begin() or otherwise before passing it to SerialVGA.
+
 If you haven't yet changed the baud rate on your Serial VGA driver board then you should initialize the library with:
 
 ```c
@@ -22,9 +24,27 @@ If you haven't yet changed the baud rate on your Serial VGA driver board then yo
 
 void setup()
 {
-    SerialVGA vga(9600);
+    Serial.begin(9600)
+    
+    SerialVGA vga(Serial);
     vga.reboot();
 }
 ```
 
 It's not a bad idea to reboot the board to put it back to a known state in your setup() function.
+
+You can also use SoftwareSerial, simply by passing it in place of Serial:
+
+```c
+#include <SerialVGA.h>
+#include <SoftwareSerial.h>
+
+void setup()
+{
+    SoftwareSerial SoftSerial(10,11);
+    SoftSerial.begin(9600);
+
+    SerialVGA vga(SoftSerial);
+    vga.reboot();
+}
+```

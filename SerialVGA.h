@@ -57,7 +57,7 @@ class SerialVGA
     private:
         int _baud;
         Stream& _serial;
-        void send_command(char* command,char *params);
+        void send_command(char command,char *params);
 };
 
 #endif

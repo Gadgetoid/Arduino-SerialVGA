@@ -15,13 +15,13 @@ unsigned long number_avg=0;
 
 void setup() {                
   // initialize  
-  Serial.begin(9600);      // Set baud rate for serialVGA board
+  Serial.begin(115200);      // Set baud rate for serialVGA board
   
   vga = new SerialVGA(Serial);
   
   vga->reboot();
   
-  vga->make_window(0,0,0,100,3,1,""); // Header
+  vga->make_window(1,0,0,100,3,1,""); // Header
   
   vga->print("                        ");
   vga->print("HobbyTronics serialVGA Driver board Demonstration");

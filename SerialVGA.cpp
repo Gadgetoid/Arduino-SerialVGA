@@ -8,6 +8,7 @@
 SerialVGA::SerialVGA(Stream& serial) :
     _serial( serial )
 {
+    _baud = 115200;
     //_baud = baud;
     //_serial = serial;
     //_serial.begin(baud);
@@ -15,7 +16,7 @@ SerialVGA::SerialVGA(Stream& serial) :
 
 void SerialVGA::reboot()
 {
-    char command[1] = {'r'};
+    char command = 'r';
     char params[] = {};
     send_command(command,params);
 }
@@ -31,15 +32,15 @@ void SerialVGA::reboot()
 */
 void SerialVGA::make_window(int id, int x, int y, int w, int h, int b, char* title)
 {
-    char command[1] = {'w'};
-    char params[40];
+    char command = 'w';
+    char params[255];
     sprintf(params,",%d,%d,%d,%d,%d,%d,%s",id,x,y,w,h,b,title);
     send_command(command,params);
 }
 
 void SerialVGA::erase_window(int w)
 {
-    char command[1] = {'e'};
+    char command = 'e';
     char params[10];
     sprintf(params,",%d",w);
     send_command(command,params);
@@ -47,32 +48,32 @@ void SerialVGA::erase_window(int w)
 
 void SerialVGA::set_focus(int w)
 {
-    char command[1] = {'f'};
-    char params[10];
+    char command = 'f';
+    char params[10] = {};
     sprintf(params,",%d",w);
     send_command(command,params);
 }
 
 void SerialVGA::toggle_cursor(int w, int onoff)
 {
-    char command[1] = {'c'};
-    char params[10];
+    char command = 'c';
+    char params[10] = {};
     sprintf(params,",%d,%d",w,onoff);
     send_command(command,params);
 }
 
 void SerialVGA::set_cursor(int x, int y)
 {
-    char command[1] = {'p'};
-    char params[10];
+    char command = 'p';
+    char params[10] = {};
     sprintf(params,",%d,%d",x,y);
     send_command(command,params);
 }
 
 void SerialVGA::set_color(int startx, int endx, char *fg, char *bg)
 {
-    char command[1] = {'l'};
-    char params[255];
+    char command = 'l';
+    char params[50] = {};
     sprintf(params,",%d,%d,%s,%s",startx,endx,fg,bg);
     send_command(command,params);
 }
@@ -192,20 +193,24 @@ void SerialVGA::println(char *text_str)
 }
 */
 
-void SerialVGA::send_command(char *command,char *params)
+void SerialVGA::send_command(char command,char *params)
 {
     _serial.print("^[");
-    _serial.print(command);
     if( strlen( params ) > 0 )
     {
+        _serial.print(command);
         _serial.println(params);
     }
-    if( command[0] == 'r' ) delay(2000);                    // 2 second wait for reboot
-    if( command[0] == 'w' && _baud == 115200 ) delay(20);    // 20ms delay for window commands
+    else
+    {
+        _serial.println(command);
+    }
+    if( command == 'r' ) delay(2000);                    // 2 second wait for reboot
+    if( command == 'w' && _baud == 115200 ) delay(20);    // 20ms delay for window commands
     // Other delays?
-    if( command[0] == 'w' && _baud == 9600   ) delay(5);     // Only 5ms needed for 9600 baud
+    if( command == 'w' && _baud == 9600   ) delay(5);     // Only 5ms needed for 9600 baud
 
-    delay(2); // All commands need a short delay
+    delay(20); // All commands need a short delay
 }
 
 

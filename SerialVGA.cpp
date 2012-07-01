@@ -15,7 +15,7 @@ SerialVGA::SerialVGA(Stream& serial) :
 
 void SerialVGA::reboot()
 {
-    char command[] = {'r'};
+    char command[1] = {'r'};
     char params[] = {};
     send_command(command,params);
 }
@@ -31,48 +31,48 @@ void SerialVGA::reboot()
 */
 void SerialVGA::make_window(int id, int x, int y, int w, int h, int b, char* title)
 {
-    char command[] = {'w'};
-    char params[] = {};
+    char command[1] = {'w'};
+    char params[40];
     sprintf(params,",%d,%d,%d,%d,%d,%d,%s",id,x,y,w,h,b,title);
     send_command(command,params);
 }
 
 void SerialVGA::erase_window(int w)
 {
-    char command[] = {'p'};
-    char params[] = {};
+    char command[1] = {'e'};
+    char params[10];
     sprintf(params,",%d",w);
     send_command(command,params);
 }
 
 void SerialVGA::set_focus(int w)
 {
-    char command[] = {'p'};
-    char params[] = {};
+    char command[1] = {'f'};
+    char params[10];
     sprintf(params,",%d",w);
     send_command(command,params);
 }
 
 void SerialVGA::toggle_cursor(int w, int onoff)
 {
-    char command[] = {'c'};
-    char params[] = {};
+    char command[1] = {'c'};
+    char params[10];
     sprintf(params,",%d,%d",w,onoff);
     send_command(command,params);
 }
 
 void SerialVGA::set_cursor(int x, int y)
 {
-    char command[] = {'p'};
-    char params[] = {};
+    char command[1] = {'p'};
+    char params[10];
     sprintf(params,",%d,%d",x,y);
     send_command(command,params);
 }
 
 void SerialVGA::set_color(int startx, int endx, char *fg, char *bg)
 {
-    char command[] = {'l'};
-    char params[] = {};
+    char command[1] = {'l'};
+    char params[255];
     sprintf(params,",%d,%d,%s,%s",startx,endx,fg,bg);
     send_command(command,params);
 }
